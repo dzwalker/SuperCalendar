@@ -1,0 +1,8 @@
+template(name="layout")
+    .container-fluid
+        +header
+        #main.row-fluid
+            +yield
+        nav.navbar-fixed-bottom(role="navigation")
+            .container
+                +flashMessages

@@ -1,0 +1,17 @@
+template(name="todoMyCalOneDay")
+    th(class="#{cssToday}")
+        .oneDay
+            p
+                span 
+                    //- a(href="{{pathFor route='activityNew' query=createDate}}")
+                        i.glyphicon.glyphicon-plus
+                    |#{date}
+                span.addItem
+                    a(href="{{pathFor route='todoCreate' query=queryString}}") +TODO
+            .oneDayReminders
+                each thisDayReminders
+                    p #{title}
+                        
+            .oneDayTodos
+            if isShowThisWeekTodos
+                .oneWeekTodos

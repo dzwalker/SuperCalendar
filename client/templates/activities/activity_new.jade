@@ -1,0 +1,51 @@
+template(name="activityNew")
+    form.main.form
+        input(type="hidden",value="#{_exam}",name="exam")
+        .form-group
+            label.control-label(for="type") 活动类型
+            .controls
+                each activityTypes
+                    label.radio-inline
+                        input(type="radio", name="type", value="#{t}")
+                        |#{n}
+        .form-group
+            label.control-label(for="teachers") 主讲老师
+            .controls
+                each teachers
+                    label.checkbox-inline
+                        input(type="checkbox", name="teachers", value="#{t}")
+                        |#{n}
+        .form-group
+            label.control-label(for="status") 是否为待定活动
+            .controls
+                label.radio-inline
+                    input(type="radio", name="status", value="0")
+                    |正式活动
+                label.radio-inline
+                    input(type="radio", name="status", value="1", checked="true")
+                    |待定活动
+        .form-group
+            label.control-label(for="title") 活动名称
+            .controls
+                input.form-control(type="text", placeholder="活动名称", name="title", id="title", value="")
+        
+        .form-group
+            label.control-label(for="note") 备注
+            .controls
+                input.form-control(type="text", placeholder="备注", name="note", id="note", value="")
+        
+        .form-group
+            label.control-label(for="detail") 补充信息
+            .controls
+                textarea.form-control(type="text", placeholder="补充信息", name="detail", id="detail", value="")
+        .form-group
+            label.control-label(for="datetime") 日期
+            .controls
+                .input-group.datetimepicker
+                    if duetime
+                        input.datepicker.set-due-date.form-control(type="text", name="datetime", value="#{duetime}")
+                    else
+                        input.datepicker.set-due-date.form-control(type="text", name="datetime")
+                    //- span.input-group-addon
+                        i.glyphicon.glyphicon-calendar
+        input.btn.btn-primary(type="submit", value="创建活动")

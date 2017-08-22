@@ -1,0 +1,43 @@
+template(name="todoWeekly")
+    #WeeklyTodo.row-fluid.itemsSelectors
+        form.form-inline
+            .controls
+                label.control-label.hidden-xs(for='startDate') 选择日期：
+                .input-group
+                    input.form-control.datepicker(type="text", name="startDate", value="#{dateString}")
+                    .btn-group(role='group' aria-label="...")
+                        a#preWeek.btn.btn-default(href="{{pathFor route='todoWeekly' query=dateStringPreWeek}}")
+                            span.glyphicon.glyphicon-menu-left(aria-hidden="true")
+                        a#nextWeek.btn.btn-default(href="{{pathFor route='todoWeekly' query=dateStringNextWeek}}")
+                            span.glyphicon.glyphicon-menu-right(aria-hidden="true")
+                label.control-label.hidden-xs ｜
+                label.control-label.hidden-xs(for="viewMode") 显示模式：
+                label.radio-inline.hidden-xs
+                    input(type="radio", name="viewMode", value="1", checked="checked") 
+                    |编辑模式
+                label.radio-inline.hidden-xs
+                    input(type="radio", name="viewMode", value="0", ) 
+                    |浏览模式
+                
+                label.radio-inline.input-lg.visible-xs-inline-block
+                    input(type="radio", name="viewMode", value="1") 
+                    |编辑
+                label.radio-inline.input-lg.visible-xs-inline-block
+                    input(type="radio", name="viewMode", value="0", ) 
+                    |浏览
+                    
+                label.control-label.hidden-xs ｜
+                label.control-label.hidden-xs 
+                    a(href="{{pathFor 'todoMySettings'}}") 设置任务分类>>
+                //- label.control-label ｜
+                //- label.control-label 
+                    a#sendTodoWeekly(href="#") 发送邮件
+                if isInRole 'admin' 'todo'
+                    label.control-label.hidden-xs ｜
+                    label.control-label.hidden-xs 查看用户：
+                    select#changeUser.form-control(name="todoUsers")
+                        each todoUsers
+                            option(value="#{_id}") #{username}(#{nickName})
+                    
+    .row-fluid
+        +Template.dynamic(template="todoWeeklyContent" data=todoWeeklyContentData)

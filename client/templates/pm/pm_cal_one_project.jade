@@ -1,0 +1,6 @@
+template(name="pmCalOneProject")
+    .oneCourse(id="#{_id}", class="") 
+        p(class="oneItem badge-project #{cssStyle} #{isWithoutObjectCSS}") 
+            span.itemTitle 
+                a.titleLink(href="{{pathFor route='projectItem' data=courseQuery }}")
+                    | #{title}

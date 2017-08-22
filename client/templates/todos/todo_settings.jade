@@ -1,0 +1,9 @@
+template(name="todoMySettings")
+    .row-fluid
+        h3 设置todo功能
+        form.main.form
+            .form-group
+                label.control-label(for="catagories") 分类——用分号(;)分隔各个任务的分类
+                .controls
+                    input.form-control(type="text", placeholder="用;分隔各个任务的分类", name="catagories", id="catagories", value="#{catagories}")
+            input.btn.btn-primary(type="submit", value="保存分类")

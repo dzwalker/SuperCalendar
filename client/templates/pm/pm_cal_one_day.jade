@@ -1,0 +1,18 @@
+template(name="pmCalOneDay")
+    th(class="#{cssByTime}")
+        .oneDay
+            p
+                span 
+                    |#{date}
+                span.addItem
+                    a(href="{{pathFor route='pmNewProject' query=queryString}}") +白条
+            .oneDayDeadlineProjects
+                each thisDayDeadlineProjects
+                    +pmCalOneProject
+                    //- p #{title} 
+            //-             
+            .oneDayCheckPoints
+                each thisDayCheckPoints
+                    +pmCalOneCheckpoint
+            //- if isShowThisWeekTodos
+            //-     .oneWeekTodos

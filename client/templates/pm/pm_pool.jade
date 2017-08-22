@@ -1,0 +1,6 @@
+template(name="pmPool")
+    ul
+        each itemsInPool
+            li
+                a(href="{{pathFor route='projectItem' query=queryString}}") 
+                    |#{title}

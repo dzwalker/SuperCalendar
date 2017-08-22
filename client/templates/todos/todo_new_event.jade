@@ -1,0 +1,36 @@
+template(name="todoEventNew")
+    form.main.form
+        input(type="hidden",value="#{_exam}",name="exam")
+        .form-group
+            label.control-label(for="catagory") 事件类型
+            .controls
+                each todoCatagories
+                    label.radio-inline
+                        input(type="radio", name="catagory", value="#{t}")
+                        |#{n}
+
+        .form-group
+            label.control-label(for="title") 事件名称
+            .controls
+                input.form-control(type="text", placeholder="事件名称", name="title", id="title", value="")
+        
+        .form-group
+            label.control-label(for="note") 补充信息
+            .controls
+                input.form-control(type="text", placeholder="备注", name="note", id="note", value="")
+        
+        //- .form-group
+            label.control-label(for="detail") 补充信息
+            .controls
+                textarea.form-control(type="text", placeholder="补充信息", name="detail", id="detail", value="")
+        .form-group
+            label.control-label(for="datetime") 日期
+            .controls
+                .input-group.datetimepicker
+                    if duetime
+                        input.datepicker.set-due-date.form-control(type="text", name="datetime", value="#{duetime}")
+                    else
+                        input.datepicker.set-due-date.form-control(type="text", name="datetime")
+                    //- span.input-group-addon
+                        i.glyphicon.glyphicon-calendar
+        input.btn.btn-primary(type="submit", value="创建活动")

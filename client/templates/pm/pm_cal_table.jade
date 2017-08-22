@@ -1,0 +1,16 @@
+template(name="pmCalTable")
+    .weeks
+        table.table.table-hover.table-bordered
+            thead
+                tr
+                    th.col-md-1 周一
+                    th.col-md-1 周二
+                    th.col-md-1 周三
+                    th.col-md-1 周四
+                    th.col-md-1 周五
+                    th.col-md-1 周六
+                    th.col-md-1 周日
+            tbody
+                each weeks
+                    +pmCalOneWeek
+        

@@ -1,0 +1,24 @@
+template(name="statisticsExamTable")
+    .result
+        table.table.table-hover.table-bordered
+            thead
+                tr
+                    th.col-md-1 老师
+                    each months
+                        th.col-md-1 #{dateString}
+                    th.col-md-1 汇总
+            tbody
+                each results.resultByTeachers
+                    tr.teacherLine
+                        each oneLine
+                            th 
+                                |#{string}
+                each results.resultSumSubject
+                    tr.subjectLine
+                        each oneLine
+                            th 
+                                |#{string}
+                tr.sumLine
+                    each results.lineSum
+                        th
+                            |#{string}

@@ -1,0 +1,50 @@
+template(name="courseItem")
+    .event
+        .event-content
+            h3 #{thisCourse.title}
+            form.main.form
+                input(type="hidden",value="#{thisCourse._id}",name="courseId")
+                input(type="hidden",value="#{thisCourse.exam}",name="exam")
+            
+                .form-group
+                    label.control-label(for="teachers") 主讲老师
+                    .controls
+                        each formTeachers
+                            label.checkbox-inline
+                                input(type="checkbox", name="teachers", value="#{t}", checked="#{isSelected}")
+                                |#{n}
+                .form-group
+                    label.control-label(for="liveDays") 直播日
+                    .controls
+                        input.form-control(type="text", placeholder="直播日", name="liveDays", id="liveDays", value="#{liveDaysString}")
+                    //- p #{liveDatesString} 
+                .form-group.form-inline
+                    label.control-label(for="specialLiveTime") 特殊直播时间(常规时间：#{thisCourse.liveTimes})
+                    each liveDateAndTime
+                        //- p #{date} #{liveTime}
+                        .controls
+                            span #{date}：
+                            input.form-control(type="text", placeholder="4位数字时间", name="liveTime", value="#{liveTime}", data-order="#{order}")
+                            select.form-control(name="liveTeachers")
+                                option(value="daiding",selected="") 请选择
+                                
+                                each liveTeachers
+                                    option(value="#{value}",selected="#{isSelected}") #{nickName} 
+                    //- if isInRole 'admin'
+                        .controls
+                            input.form-control(type="text", placeholder="特殊直播时间", name="specialLiveTime", id="specialLiveTime", value="#{thisCourse.specialLiveTimeString}")
+                .form-group
+                    label.control-label(for="note") 备注
+                    .controls
+                        input.form-control(type="text", placeholder="备注", name="note", id="note", value="#{thisCourse.note}")
+                .form-group
+                    label.control-label(for="status") 是否为待定课程
+                    .controls
+                        label.radio-inline
+                            input(type="radio", name="status", value="0", checked="#{thisCourse.status0}")
+                            |正式课程 
+                        label.radio-inline
+                            input(type="radio", name="status", value="1", checked="#{thisCourse.status1}")
+                            |待定课程 
+                if isInRole 'admin' roleExam
+                    input.btn.btn-primary(type="submit", value="保存修改")

@@ -1,0 +1,34 @@
+template(name="oneDay")
+    //- .oneDay.ng-isolate-scope(dragula='"oneDay"')
+    th(class="#{cssToday} #{liveCourses.cssHasConflict}")
+        .oneDay
+            p
+                span 
+                    //- a(href="{{pathFor route='activityNew' query=createDate}}")
+                        i.glyphicon.glyphicon-plus
+                    |#{date}
+                if isShowExamAction
+                    span.addItem
+                        a(href="{{pathFor route='todoEventNew' data=_exam query=queryString}}") +事件
+                        | ｜
+                        a(href="{{pathFor route='activityNew' data=_exam query=queryString}}") +活动
+                        | ｜
+                        a(href="{{pathFor route='courseNew' data=_exam query=queryString}}") +课
+
+                    
+            if isShowEvent
+                .oneDayEvents(data-date="#{dateString}")
+                    each todoEvents
+                        +oneEvent
+            .oneDayCourses(data-date="#{dateString}")
+                each courses
+                    +oneCourse
+            .oneDayLiveCourses(data-date="#{dateString}")
+                each liveCourses.liveCourses
+                    +oneLiveCourse
+            .oneDayActivities(data-date="#{dateString}")
+                each activities
+                    +oneActivity
+            .oneDayTodos(data-date="#{dateString}")
+                each todos
+                    +oneTodo

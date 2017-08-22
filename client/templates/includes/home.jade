@@ -1,0 +1,11 @@
+template(name="home")
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        h3 
+            a(href="{{pathFor 'todoWeekly'}}") 试试新的周计划周总结功能吧(注册用户only)>>
+        
+        h3 或者选一个考试进去看看日历
+        ul
+            each exams
+                li
+                    h4
+                        a(href="{{pathFor 'examCal' data=_exam}}") #{words}

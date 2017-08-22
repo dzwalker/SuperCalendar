@@ -1,0 +1,7 @@
+template(name="eventItem")
+    .event
+        .event-content
+            h3
+                | #{title}
+                span #{duetime} #{brief}
+        a.discuss.btn.btn-default(href="{{pathFor 'eventPage'}}") Discuss

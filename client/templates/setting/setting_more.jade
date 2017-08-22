@@ -1,0 +1,16 @@
+template(name="settingMore")
+    +settingTabs
+    h1 重置配置数据
+    form.form-inline
+        .controls
+            label.checkbox-inline
+                input(type="checkbox", name="resetDefault", value="")
+                |我知道这会重置数据
+            input#resetConfigure.btn.btn-primary(type="button", value="重置配置数据")
+    h1 更新todo的type，从"weekly"到5
+    form.form-inline
+        .controls
+            label.checkbox-inline
+                input(type="checkbox", name="updateTodosType", value="")
+                |我知道这会更新todo的type数据
+            input#updateTodosType.btn.btn-primary(type="button", value="更新todo的type数据")

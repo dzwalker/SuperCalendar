@@ -1,0 +1,43 @@
+template(name="statisticsExamSelector")
+    #itemsSelectors.itemsSelectors.row-fluid
+        .span12
+            form.form-inline
+                .controls
+                    label.control-label(for='startDate') 开始日期：
+                    .input-group
+                        input#startDate.form-control.datepicker(type="text", name="startDate", value="#{startDate}")
+                    label.control-label(for='endDate') 结束日期：
+                    .input-group
+                        input#endDate.form-control.datepicker(type="text", name="endDate", value="#{endDate}")
+                    
+                    if isShowSubjectsCourseType
+                        label.control-label ｜
+                        label.control-label(for="subjects") 课程科目：
+                        each subjects
+                            label.checkbox-inline
+                                input(type="checkbox", name="subjects", value="#{s}", checked="#{isSelected}")
+                                |#{n}
+                .controls
+                    label.control-label(for="teachers") 主讲老师：
+                    each formTeachers
+                        label.checkbox-inline
+                            input(type="checkbox", name="teachers", value="#{t}", checked="#{isSelected}")
+                            |#{n}
+                    
+                .controls
+                    
+                    label.control-label(for="viewCourses") 课程显示：
+                    label.radio-inline
+                        input(type="radio", name="viewCourses", value="1", checked="checked") 
+                        |开课日
+                    label.radio-inline
+                        input(type="radio", name="viewCourses", value="2") 
+                        |直播日
+
+                    if isShowSubjectsCourseType
+                        label.control-label ｜
+                        label.control-label(for="courseTypes") 课程类型：
+                        each formCourseTypes
+                            label.radio-inline
+                                input(type="radio", name="courseTypes", value="#{t}", checked="#{isSelected}")
+                                |#{n}

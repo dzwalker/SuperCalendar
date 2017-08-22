@@ -1,0 +1,29 @@
+template(name="todoItem")
+    .event
+        .event-content
+            h3 #{thisTodo.titleShow}
+            form.main.form
+                input(type="hidden",value="#{thisTodo._id}",name="todoId")
+                input(type="hidden",value="#{thisTodo.userId}",name="exam")
+                
+                .form-group
+                    label.control-label(for="status") 删除TODO
+                    .controls
+                        label.radio-inline
+                            input(type="radio", name="status", value="1", checked="true")
+                            |不删除TODO 
+                        label.radio-inline
+                            input(type="radio", name="status", value="9")
+                            |删除TODO
+                .form-group
+                    label.control-label(for="title") 内容
+                    .controls
+                        input.form-control(type="text", placeholder="内容", name="title", id="title", value="#{thisTodo.title}")
+                .form-group
+                    label.control-label(for="note") 详情
+                    .controls
+                        input.form-control(type="text", placeholder="备注", name="note", id="note", value="#{thisTodo.note}")
+                if isEditable
+                    input.btn.btn-primary(type="submit", value="保存修改")
+            //- +flashMessages
+                    

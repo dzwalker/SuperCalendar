@@ -1,0 +1,35 @@
+template(name="activityItem")
+    .event
+        .event-content
+            h3 #{thisActivity.titleShow}
+            form.main.form
+                input(type="hidden",value="#{thisActivity._id}",name="activityID")
+                input(type="hidden",value="#{thisActivity.exam}",name="exam")
+                .form-group
+                    label.control-label(for="teachers") 主讲老师
+                    .controls
+                        each formTeachers
+                            label.checkbox-inline
+                                input(type="checkbox", name="teachers", value="#{t}", checked="#{isSelected}")
+                                |#{n}
+                .form-group
+                    label.control-label(for="status") 是否为待定活动
+                    .controls
+                        label.radio-inline
+                            input(type="radio", name="status", value="0", checked="#{thisActivity.status0}")
+                            |确定活动 
+                        label.radio-inline
+                            input(type="radio", name="status", value="1", checked="#{thisActivity.status1}")
+                            |待定活动 
+                .form-group
+                    label.control-label(for="title") 活动名称
+                    .controls
+                        input.form-control(type="text", placeholder="活动名称", name="title", id="title", value="#{thisActivity.title}")
+                .form-group
+                    label.control-label(for="note") 备注
+                    .controls
+                        input.form-control(type="text", placeholder="备注", name="note", id="note", value="#{thisActivity.note}")
+                if isInRole 'admin' roleExam
+                    input.btn.btn-primary(type="submit", value="保存修改")
+            //- +flashMessages
+                    

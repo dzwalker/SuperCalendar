@@ -1,0 +1,10 @@
+template(name="pmCalOneCheckpoint")
+    .oneActivity(id="#{_id}") 
+        p(class="oneItem badge-checkpoint #{cssStyle}") 
+            span.itemTitle 
+                a.titleLink(href="{{pathFor route='projectItem' data=courseQuery }}")
+                    |#{title}
+            //- span.itemDetail
+                a.iconSetting(href="{{pathFor route='projectItem' data=courseQuery }}")
+                    | ⓘ
+        

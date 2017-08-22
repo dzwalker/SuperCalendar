@@ -1,0 +1,12 @@
+template(name="oneActivity")
+    if isVisable
+        .oneActivity(id="#{activityID}") 
+            p(class="oneItem badge-activity #{cssStyle}") 
+                span.itemTitle #{title}
+                span.itemDetail
+                    a.iconSetting(href="{{pathFor route='activityItem' data=activityQuery query=queryString}}")
+                        |ⓘ
+                        //- i.glyphicon.glyphicon-info-sign
+        //- each teachers
+        //-     span.label.badge-teacher #{shortName}
+        //- |#{title}

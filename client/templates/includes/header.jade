@@ -1,0 +1,63 @@
+template(name="header")
+    //- nav.navbar.navbar-default.navbar-fixed-bottom(role="navigation")
+        .navbar-header
+            button.navbar-toggle.collapsed(type="button" data-toggle="collapse" data-target="#navigation")
+                span.sr-only Toggle navigation
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
+    //- nav.navbar.navbar-default.navbar-fixed-bottom(role="navigation")
+    nav.navbar.navbar-default(role="navigation")
+        a.navbar-brand(href="{{pathFor 'home'}}") Total Calendar
+        .navbar-header
+        
+            button.navbar-toggle.collapsed(type="button" data-toggle="collapse" data-target="#navigation")
+                span.sr-only Toggle navigation
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
+        #navigation.collapse.navbar-collapse
+            ul.nav.navbar-nav
+                li.dropdown(role="presentation")
+                    a.dropdown-toggle(href="#" data-toggle="dropdown" role="button"  aria-haspopup="true" aria-expanded="false") 
+                        |课程/活动日历
+                        if _exam
+                            |(#{_exam._exam})
+                        span.caret
+                    ul.dropdown-menu
+                        each examCals
+                            li
+                                a(href="{{pathFor route='examCal' data=exam}}") #{words}
+                if showStatisticsExam
+                    li.dropdown
+                        a.dropdown-toggle(href="#" data-toggle="dropdown" role="button"  aria-haspopup="true" aria-expanded="false") 
+                            |排课统计
+                            if _exam
+                                |(#{_exam._exam})
+                            span.caret
+                        ul.dropdown-menu
+                            each examCals
+                                li
+                                    a(href="{{pathFor route='statisticsExam' data=exam}}") #{words}
+                li(role="presentation")
+                    a(href="{{pathFor 'todoWeekly'}}") 周计划/总结            
+                //- li
+                    a(href="{{pathFor 'todoMyCal'}}") 个人日历            
+                if showPmCal
+                    li(role="presentation")
+                        a(href="{{pathFor 'pmCal'}}") 小本本            
+
+            
+            ul.nav.navbar-nav.navbar-right
+                //- li
+                    input.form-control(type="text", placeholder="TabName", id="TabName",value="" )
+                //- li
+                    input.btn.btn-primary(type="button", value="查询", id="btnSearch")
+                //- if currentUser
+                    li
+                        a(href="{{pathFor 'courseNew'}}") 添加课程
+                if isInRole 'superAdmin' 'adminGroup'
+                    li
+                        a(href="{{pathFor 'usersList'}}") 设置
+            ul.nav.navbar-nav.navbar-right
+                +loginButtons

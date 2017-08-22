@@ -1,0 +1,80 @@
+template(name="todoWeeklyContent")
+    .todoWeeklyWrapper
+        h3.todoHeader 
+            span.hidden-xs 工作计划与总结：
+            mark
+                |#{dateString.startDateString}
+            |至
+            mark
+                |#{dateString.endDateString}
+            //- if isEditableMode
+            //-     span.sendEmail
+            
+        each todoTree
+            .oneCatagory
+                h4.catagory #{catagory}
+                ol
+                    each todos
+                        li 
+                            p.todo 
+                                //- a(href="#") 高亮
+                                if star
+                                    if isEditableMode
+                                        a.unstarIt(href="#",data-todoId="#{_id}") 
+                                            span.glyphicon.glyphicon-star
+                                        span.title.stared {{> editableText collection="todos" field="title"}}
+                                    else
+                                        span.title.stared #{title}
+                                else
+                                    if isEditableMode
+                                        a.starIt(href="#",data-todoId="#{_id}") 
+                                            span.glyphicon.glyphicon-star-empty
+                                        span.title {{> editableText collection="todos" field="title"}}
+                                    else
+                                        span.title #{title}
+                                if isEditableMode
+                                    a.delIt(href="#",data-todoId="#{_id}") 
+                                        span.glyphicon.glyphicon-trash
+                            if isEditableMode
+                                p.todoNote {{> editableText collection="todos" field="note" textarea=true wysiwyg=true  EditableText.trustHtml=true acceptEmpty=true substitute='<span class="sub">添加记录</span>'}}
+                            else
+                                if note
+                                    p.todoNote 
+                                        span 工作记录：!{noteHtml}
+                                
+                if isEditableMode
+                    .row.form-group
+                        .col-md-8
+                            form.form
+                                input(type="hidden",value="#{catagory}",name="catagory")
+                                input(type="hidden",value="weekly",name="type")
+                                label.sr-only(for="title") 添加
+                                .input-group
+                                    span.input-group-addon
+                                        span.glyphicon.glyphicon-plus-sign
+                                    input.form-control(type="text",placeholder="新的“#{catagory}”", name="title", value="")
+                                    span.input-group-btn
+                                        input.btn.btn-default(type='submit',value="添加")
+                //- hr
+        
+        if isEditableMode
+            h4.catagory 客户心声（换行请按shift+enter）
+        else
+            h4.catagory 客户心声
+        ul
+            li
+                if isEditableMode
+                    p.todoNote {{> editableText context=userComment wysiwyg=true acceptEmpty=true textarea=true EditableText.trustHtml=true collection="todos" field="note" substitute='<span class="sub">点击添加客户心声</span>' }}
+                else
+                    p.todoNote !{userComment.noteHtml}
+        
+        if isEditableMode
+            h4.catagory 学习与反思（换行请按shift+enter）
+        else
+            h4.catagory 学习与反思
+        ul
+            li
+                if isEditableMode
+                    p.todoNote {{> editableText context=weeklySummary wysiwyg=true acceptEmpty=true textarea=true EditableText.trustHtml=true collection="todos" field="note" substitute='<span class="sub">点击添加学习与反思</span>' }}
+                else
+                    p.todoNote !{weeklySummary.noteHtml}

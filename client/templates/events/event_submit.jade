@@ -1,0 +1,23 @@
+template(name="eventSubmit")
+    form.main.form
+        .form-group
+            label.control-label(for="title") Title
+            .controls
+                input.form-control(type="text", placeholder="事件", name="title", id="title", value="")
+
+        .form-group
+            label.control-label(for="url") URL
+            .controls
+                input.form-control(type="text", placeholder="your url", name="url", id="url", value="")
+
+        .form-group
+            label.control-label(for="detail") 详细记录
+            .controls
+                textarea.form-control(type="text", placeholder="详细记录", name="detail", id="detail", value="")
+
+        .form-group
+            .input-group.datetimepicker
+                span.input-group-addon
+                    i.glyphicon.glyphicon-calendar
+                input.set-due-date.form-control(type="text", name="datetime")
+        input.btn.btn-primary(type="submit", value="创建")

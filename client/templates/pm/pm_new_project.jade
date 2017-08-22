@@ -1,0 +1,33 @@
+template(name="pmNewProject")
+    form.main.form
+        h2 添加新的白条
+                    //- input(type="hidden",value="#{thisCourse._id}",name="courseId")
+                    //- input(type="hidden",value="#{thisCourse.exam}",name="exam")
+        .form-group
+            label.control-label(for="title") 白条内容
+            .controls
+                input.col-xs-8.form-control(type="text", placeholder="内容", name="title", id="title")
+        
+        .form-group
+            label.control-label(for="catagory") 分类
+            .controls
+                each pmCatagories
+                    label.radio-inline
+                        input(type="radio", name="catagory", value="#{t}", checked="#{isSelected}")
+                        |#{n}
+        .form-group
+            label.control-label(for="dateBegin") 开始时间
+            .controls
+                .input-group.datetimepicker
+                    input#dateBegin.datepicker.set-due-date.form-control(type="text", name="dateBegin", value="#{dateBeginString}")
+                    
+        .form-group
+            label.control-label(for="deadline") Deadline
+            .controls
+                .input-group.datetimepicker
+                    if deadlineString
+                        input#deadline.datepicker.set-due-date.form-control(type="text", name="deadline", value="#{deadlineString}")
+                    else
+                        input#deadline.datepicker.set-due-date.form-control(type="text", name="deadline")
+        
+        input#submitProject.btn.btn-primary(type="submit", value="添加白条")

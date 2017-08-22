@@ -1,0 +1,144 @@
+template(name="projectItem")
+    .row-fluid
+        .projectItemWrapper.col-md-12
+            h2.projectTitle
+                | {{> editableText context=thisItem collection="projects" field="title"}}
+                if userCanDelProject
+                    a.projectChangeStatus(href="#",data-projectId="#{projectId}",data-status="9") 
+                        span.glyphicon.glyphicon-trash
+                
+                if projectIsChecked
+                    a.projectChangeStatus(href="#",data-projectId="#{projectId}",data-status="0") 
+                        span.glyphicon.glyphicon-check
+                else
+                    a.projectChangeStatus(href="#",data-projectId="#{projectId}",data-status="1") 
+                        span.glyphicon.glyphicon-unchecked
+
+
+            .oneCatagory
+                h4 目的
+                ul
+                    li
+                        span.title {{> editableText context=thisItem collection="projects" field="purpose" substitute='<span class="sub">点击添加目的</span>'}}
+                
+                h4 目标/交付物
+                ol
+                    each objects
+                        li
+                            .form-group.form-inline
+                                span.title {{> editableText  collection="projectObjects" field="title" substitute='<span class="sub">点击添加目的</span>'}}
+                                span.note {{> editableText  collection="projectObjects" acceptEmpty=true field="note" substitute='<span class="sub">点击添加记录</span>'}}
+                                a.delObject(href="#",data-ObjectId="#{_id}") 
+                                    span.glyphicon.glyphicon-trash
+                .row.form-group
+                    .col-md-8
+                        form.newObject.form
+                            label.sr-only(for="title") 添加
+                        
+                            .input-group
+                                input(type="hidden",value="#{projectId}",name="projectId")
+                                span.input-group-addon
+                                    span.glyphicon.glyphicon-check
+                                input.form-control(type="text",placeholder="新的目标", name="newObjectContent")
+                                span.input-group-btn
+                                    input.input.btn.btn-default(type='submit',value="添加")
+            .oneCatagory
+                h4 开始与结束时间
+                .form-group.form-inline
+                    .input-group
+                        .input-group.datetimepicker
+                            input.input-sm#dateBegin.datepicker.set-due-date.form-control(type="text", name="dateBegin", value="#{dateBeginString}",data-projectId="#{projectId}")
+                        label.control-label 至
+                        .input-group.datetimepicker
+                            input.input-sm#deadline.datepicker.set-due-date.form-control(type="text", name="deadline", value="#{deadlineString}",data-projectId="#{projectId}")
+                                                
+                h4 关键节点
+                each checkpoints
+                    
+                    .controls.form-group.form-inline
+                        span
+                            span.glyphicon.glyphicon-calendar
+                        .input-group.datetimepicker
+                            input.checkpointDate.datepicker.set-due-date.form-control(type="text", name="dateCheckpoint", value="#{dateString}", data-CheckpointId="#{_id}")
+                        span.title {{> editableText  collection="projectCheckpoints" field="title" substitute='<span class="sub">点击修改</span>'}}
+                        span.note {{> editableText  collection="projectCheckpoints" acceptEmpty=true field="note" substitute='<span class="sub">点击添加记录</span>'}}
+                        a.delCheckpoint(href="#",data-CheckpointId="#{_id}") 
+                            span.glyphicon.glyphicon-trash
+                        .checkbox
+                            label
+                                input(name='checkCheckpoint',type='checkbox',value="#{_id}",checked="#{isChecked}")
+                                |完成
+                .row.form-group.form-inline
+                    .col-md-8
+                        form.newCheckpoint
+                            label.sr-only(for="title") 添加
+                        
+                            .controls
+                                input(type="hidden",value="#{projectId}",name="projectId")
+                                span
+                                    span.glyphicon.glyphicon-calendar
+                                input#dateNewCheckpoint.input-sm.datepicker.dateNewCheckpoint.form-control(type="text", placeholder="节点时间", name="date")
+                                .input-group.col-md-4.col-xs-6
+                                    input.input-sm.form-control(type="text", placeholder="新的节点", name="newCheckpointTitle")
+                                    span.input-group-btn
+                                        input.input-sm.btn.btn-default(type='submit',value="添加")
+                        
+            .oneCatagory                            
+                h4 详细说明
+                span
+                    span.glyphicon.glyphicon-pencil
+                span.title {{> editableText wysiwyg=true textarea=true acceptEmpty=true EditableText.trustHtml=true context=thisItem collection="projects" field="content" substitute='<span class="sub">点击填写详细说明</span>'}}
+                
+                
+                h4 备注
+                span
+                    span.glyphicon.glyphicon-pencil
+                span.title {{> editableText wysiwyg=true textarea=true acceptEmpty=true EditableText.trustHtml=true context=thisItem collection="projects" field="note" substitute='<span class="sub">点击添加备注</span>'}}
+                h4 负责人与主题
+                .controls
+                    p
+                        span.glyphicon.glyphicon-user
+
+                        each persons
+                            span.person-topic #{name}
+                                a.delPerson(href="#",data-order="#{order}",data-projectId="#{project_Id}") 
+                                    span.glyphicon.glyphicon-remove
+                .controls.form-inline
+                    form.newPerson
+                        .controls.input-group
+                            input(type="hidden",value="#{projectId}",name="projectId")
+                            input.input-sm.form-control(type="text", placeholder="负责人", name="newPerson")
+                            span.input-group-btn
+                                input.input-sm.btn.btn-default(type='submit',value="添加")
+                    p
+
+                .controls
+                    p
+                        span.glyphicon.glyphicon-tag
+                        each topics
+                            span.person-topic #{name}
+                                a.delTopic(href="#",data-order="#{order}",data-projectId="#{project_Id}") 
+                                    span.glyphicon.glyphicon-remove
+                .controls.form-inline
+                                            
+                    form.newTopic
+                        .input-group
+                            input(type="hidden",value="#{projectId}",name="projectId")
+                            input.input-sm.form-control(type="text", placeholder="主题", name="newTopic")
+                            span.input-group-btn
+                                input.input-sm.btn.btn-default(type='submit',value="添加")
+
+
+            .oneCatagory
+                h4 评分(直接上级填写，填写数字，1-10之间的整数)
+                ul
+                    li
+                        span.title {{> editableText context=thisItem collection="projects" field="rating" type="number" substitute='<span class="sub">点击填写评分</span>'}}
+                
+                
+                h4 评价总结
+                ul
+                    li
+                        span.title {{> editableText wysiwyg=true textarea=true acceptEmpty=true EditableText.trustHtml=true  context=thisItem collection="projects" field="summary" substitute='<span class="sub">点击填写评价</span>'}}
+                
+        

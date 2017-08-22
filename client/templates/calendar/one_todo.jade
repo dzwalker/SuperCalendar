@@ -1,0 +1,8 @@
+template(name="oneTodo")
+    if isVisable
+        .oneEvent(id="#{_id}") 
+            p(class="oneItem badge-event #{cssStyle}") 
+                span.itemTitle #{title}
+                span.itemDetail
+                    a.iconSetting(href="{{pathFor route='todoItem' data=todoQuery  query=queryString}}")
+                        | ⓘ

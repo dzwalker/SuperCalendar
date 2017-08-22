@@ -1,0 +1,21 @@
+template(name="settingTabs")
+    ul.nav.nav-tabs(role="tablist")
+        li(role="presentation")
+            //, class="active")
+            a(href="{{pathFor route='usersList'}}") 用户列表
+        li(role="presentation")
+            a(href="{{pathFor route='settingOrder'}}") 显示顺序
+        li(role="presentation")
+            a(href="{{pathFor route='settingTeacher'}}") 老师配置
+        li(role="presentation")
+            a(href="{{pathFor route='settingCourse'}}") 课程配置
+        li(role="presentation")
+            a(href="{{pathFor route='settingActivity'}}") 活动配置
+        li(role="presentation")
+            a(href="{{pathFor route='settingSubject'}}") 科目配置
+        li(role="presentation")
+            a(href="{{pathFor route='settingTodo'}}") TODO配置
+        li(role="presentation")
+            a(href="{{pathFor route='settingPm'}}") 小本本配置
+        li(role="presentation")
+            a(href="{{pathFor route='settingMore'}}") 更多设置

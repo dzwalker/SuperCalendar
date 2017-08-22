@@ -1,0 +1,11 @@
+template(name="oneCourse")
+    if isVisable
+        .oneCourse(id="#{courseQuery._id}") 
+            p(class="oneItem badge-aio #{cssStyle}") 
+                span.itemTitle #{title}
+                span.itemDetail
+                    a.iconSetting(href="{{pathFor route='courseItem' data=courseQuery  query=queryString}}")
+                        | ⓘ
+                        //- i.glyphicon.glyphicon-info-sign
+                //- span.glyphicon.glyphicon-info-sign.itemDetail
+                    a.iconSetting(href="{{pathFor route='courseItem' data=courseQuery  query=queryString}}") 

@@ -1,0 +1,56 @@
+template(name="selectorCourseActivity")
+    #itemsSelectors.itemsSelectors.row-fluid
+        .span12
+            form.form-inline
+                .controls
+                    label.control-label(for='startDate') 开始日期：
+                    .input-group
+                        input.form-control.datepicker(type="text", name="startDate", value="#{startDate}")
+                    select(name="weeks").form-control
+                        option(value="6")
+                            |显示6周
+                        option(value="8")
+                            |显示8周
+                        option(value="12")
+                            |显示12周
+                    if isShowSubjectsCourseType
+                        label.control-label ｜
+                        label.control-label(for="subjects") 课程科目：
+                        each subjects
+                            label.checkbox-inline
+                                input(type="checkbox", name="subjects", value="#{s}", checked="#{isSelected}")
+                                |#{n}
+                .controls
+                    label.control-label(for="teachers") 主讲老师：
+                    each formTeachers
+                        label.checkbox-inline
+                            input(type="checkbox", name="teachers", value="#{t}", checked="#{isSelected}")
+                            |#{n}
+                //- .controls
+                    
+                .controls
+                    label.control-label(for="viewActivities") 活动显示：
+                    label.radio-inline
+                        input(type="radio", name="viewActivities", value="1", checked="checked") 
+                        |显示
+                    label.radio-inline
+                        input(type="radio", name="viewActivities", value="0") 
+                        |不显示
+                    label.control-label ｜
+                    label.control-label(for="viewCourses") 课程显示：
+                    label.radio-inline
+                        input(type="radio", name="viewCourses", value="1", checked="checked") 
+                        |开课日
+                    label.radio-inline
+                        input(type="radio", name="viewCourses", value="2") 
+                        |直播日
+                    label.radio-inline
+                        input(type="radio", name="viewCourses", value="0") 
+                        |不显示
+                    if isShowSubjectsCourseType
+                        label.control-label ｜
+                        label.control-label(for="courseTypes") 课程类型：
+                        each formCourseTypes
+                            label.checkbox-inline
+                                input(type="checkbox", name="courseTypes", value="#{t}", checked="#{isSelected}")
+                                |#{n}

@@ -1,0 +1,26 @@
+template(name="usersList")
+    .row-fluid
+        +settingTabs
+        h3 用户列表
+        table.table.table-hover.table-bordered
+            thead
+                tr
+                    td 用户名
+                    td 角色
+            tbody
+                each users
+                    tr
+                        td 
+                            p #{username}
+                            p {{> editableText collection="users" field="nickName" substitute='<span class="sub">备注名</span>'}}
+                        td 
+                            each groups
+                                .controls
+                                    label.control-label(for="roles") #{group}：
+                                    each rolesInThisGroup
+                                        label.checkbox-inline
+                                            input(type="checkbox",data-exam="#{group}",  data-userId="#{userId}" name="roles", value="#{role}", checked="#{isRole}")
+                                            |#{role}
+                    
+            
+    

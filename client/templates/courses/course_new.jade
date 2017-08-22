@@ -1,0 +1,69 @@
+template(name="courseNew")
+    form.main.form
+        input(type="hidden",value="#{_exam}",name="exam")
+        h3.pageTitle 添加新课程
+        .form-group
+            label.control-label(for="type") 课程类型
+            .controls
+                each courseTypes
+                    label.radio-inline
+                        input(type="radio", name="type", value="#{t}")
+                        |#{n}
+        .form-group
+            label.control-label(for="subject") 课程科目
+            .controls
+                each subjects
+                    label.radio-inline
+                        input(type="radio", name="subject", value="#{s}")
+                        |#{n}
+        .form-group
+            label.control-label(for="dateBegin") 开课日期
+            .controls
+                .input-group.datetimepicker
+                    if dateBegin
+                        input.datepicker.set-due-date.form-control(type="text", name="dateBegin", value="#{dateBegin}")
+                    else
+                        input.datepicker.set-due-date.form-control(type="text", name="dateBegin")
+                    //- span.input-group-addon
+                        i.glyphicon.glyphicon-calendar
+        .form-group
+            label.control-label(for="liveDays") 直播日
+            .controls
+                each liveDays
+                    label.radio-inline
+                        input(type="radio", name="liveDays", value="#{t}")
+                        |#{t}：#{v}
+        
+        .form-group
+            label.control-label(for="liveTimes") 直播时间
+            .controls
+                each liveTimes
+                    label.radio-inline
+                        input(type="radio", name="liveTimes", value="#{int}")
+                        |#{str}
+        .form-group
+            label.control-label(for="teachers") 主讲老师
+            .controls
+                each teachers
+                    label.checkbox-inline
+                        input(type="checkbox", name="teachers", value="#{t}")
+                        |#{n}
+        .form-group
+            label.control-label(for="status") 是否为待定课程
+            .controls
+                label.radio-inline
+                    input(type="radio", name="status", value="0")
+                    |正式课程
+                label.radio-inline
+                    input(type="radio", name="status", value="1", checked="true")
+                    |待定课程
+        .form-group
+            label.control-label(for="note") 备注
+            .controls
+                input.form-control(type="text", placeholder="备注", name="note", id="note", value="")
+        .form-group
+            label.control-label(for="detail") 补充信息
+            .controls
+                textarea.form-control(type="text", placeholder="补充信息", name="detail", id="detail", value="")
+        
+        input.btn.btn-primary(type="submit", value="添加课程")

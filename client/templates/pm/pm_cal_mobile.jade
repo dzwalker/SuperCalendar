@@ -1,0 +1,61 @@
+template(name="pmCalMobile")
+    #itemsSelectors.row-fluid.monthSelector.itemsSelectors
+        .span12
+            h4.pmCalMobile
+                | #{dateMonth}
+                .btn-group(role='group' aria-label="...")
+                    a#preWeek.btn.btn-default(href="{{pathFor route='pmCalMobile' query=dateStringPreMonth}}")
+                        span.glyphicon.glyphicon-menu-left(aria-hidden="true")
+                    a#nextWeek.btn.btn-default(href="{{pathFor route='pmCalMobile' query=dateStringNextMonth}}")
+                        span.glyphicon.glyphicon-menu-right(aria-hidden="true")
+                span
+                    a(href="{{pathFor 'pmPool'}}") 
+                        span.glyphicon.glyphicon-time 
+                span
+                    |｜
+                span
+                    a(href="{{pathFor 'pmNewProject'}}") 
+                        span.glyphicon.glyphicon-plus 
+    .row.monthTable
+        .col-xs-12
+        
+            table.table.table-bordered
+                thead
+                    tr
+                        th.col-md-1 一
+                        th.col-md-1 二
+                        th.col-md-1 三
+                        th.col-md-1 四
+                        th.col-md-1 五
+                        th.col-md-1 六
+                        th.col-md-1 日
+                tbody
+                    each weeksOfMonthTable
+                        tr
+                            each oneWeek
+                                th(id="#{date}")
+                                    .oneDayCell(data-date="#{date}" )
+                                        table(width="100%")
+                                            tr
+                                                th.dateString(rowspan='2')
+                                                    |#{dateStr}
+                                                th.countDeadline
+                                                    |!{countDeadline}
+                                            tr
+                                                th.countCheckpoint
+                                                    |!{countCheckpoint}
+
+    .row-fluid.monthSelector.itemsSelectors
+        .span12
+            h4.pmCalMobile
+                |选中日期： #{dateSelected}
+                span
+                    a(href="{{pathFor route='pmNewProject' query=queryString}}") +白条
+            .oneDayDeadlineProjects
+                each thisDayDeadlineProjects
+                    +pmCalOneProject
+                    //- p #{title} 
+            //-             
+            .oneDayCheckPoints
+                each thisDayCheckPoints
+                    +pmCalOneCheckpoint

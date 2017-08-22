@@ -1,0 +1,49 @@
+# Meteor packages used by this project, one per line.
+# Check this file (and the other files in this directory) into your repository.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+insecure
+coffeescript
+mquandalle:jade
+twbs:bootstrap
+underscore
+iron:router
+sacha:spin
+ian:accounts-ui-bootstrap-3
+accounts-password
+tsega:bootstrap3-datetimepicker
+anonyfox:scrape
+http
+momentjs:moment
+ahref:dragula
+aldeed:moment-timezone
+rajit:bootstrap3-datepicker
+alanning:roles
+mrt:flash-messages
+reactive-var
+reactive-dict
+dataflows:jsoneditor
+check
+babrahams:editable-text
+stylus
+lookback:emails
+jeremy:selectize
+sergeyt:typeahead
+meteor-base
+mobile-experience
+mongo
+blaze-html-templates
+session
+jquery
+tracker
+logging
+reload
+random
+ejson
+spacebars
+standard-minifier-css
+standard-minifier-js
+faisalman:ua-parser-js
+mystor:device-detection

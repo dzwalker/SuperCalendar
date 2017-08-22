@@ -1,0 +1,4 @@
+Template.examCal.onRendered(
+    ()->
+        null
+)

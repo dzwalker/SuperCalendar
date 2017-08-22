@@ -1,0 +1,28 @@
+template(name="todoCreate")
+    #createTodo.row-fluid
+        .span12
+            form.form-inline
+                .controls
+                    label.control-label(for='title') 创建TODO任务：
+                    .input-group
+                        input.form-control(type="text",placeholder="新的TODO", name="title", value="")
+                    input.btn.btn-primary(type="submit", value="创建活动")
+                .controls
+                    label.control-label(for="type") 任务类型：
+                    label.radio-inline
+                        input(type="radio", name="type", value="1") 
+                        |指定时间
+                    label.radio-inline
+                        input(type="radio", name="type", value="2", checked="checked") 
+                        |日任务
+                    label.radio-inline
+                        input(type="radio", name="type", value="3") 
+                        |周任务
+                    label.radio-inline
+                        input(type="radio", name="type", value="4") 
+                        |待定
+                    label.control-label ｜
+                    label.control-label(for="duetime") 任务时间：
+                    .input-group
+                        input.form-control(type="text",placeholder="任务结束时间", name="duetime", value="")
+                
