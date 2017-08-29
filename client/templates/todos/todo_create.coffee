@@ -5,22 +5,34 @@ Template.todoCreate.helpers
 Template.todoCreate.events
     'submit form': (e,t) ->
         e.preventDefault()
-        # console.log this.query["date"],"YYYYMMDD"
-        duetime = moment(this.query["date"]+"+0800","YYYYMMDDZ")
-        duetime.hour(23)
-        duetime.minute(59)
-        duetime.second(59)
-        duetime.millisecond(0)
-        # duetime.day(7)
-        console.log duetime
+        dateString = this.query["date"]
+        year = parseInt(dateString.substr(0,4))
+        month = parseInt(dateString.substr(4,2))-1
+        dd = parseInt(dateString.substr(6,2))
+        duetime = new Date()
+        # console.log yearString,monthString,ddString,'kkkkkk'
+        # duetime = moment(this.query["date"],"YYYYMMDD")
+        duetime.setFullYear(year,month,dd)
+        duetime.setMilliseconds(0)
+
         title = $(e.target).find('[name=title]').val()
-        type = parseInt($(e.target).find('[name=type]').val())
+        type = parseInt($(e.target).find('[name=type]:checked').val())
+        if type is 1
+            hour = parseInt($(e.target).find('[name=hour]').val())
+            duetime.setHours(hour)
+            minute = parseInt($(e.target).find('[name=minute]').val())
+            duetime.setMinutes(minute)
+            duetime.setSeconds(0)
+        else
+            duetime.setHours(23)
+            duetime.setMinutes(59)
+            duetime.setSeconds(59)
         catagory = ""
         title ?= ""
         userId = Meteor.userId()
         todo =
             userId : userId
-            duetime : duetime.toDate()
+            duetime : duetime
             title : title
             type : type
             catagory : catagory

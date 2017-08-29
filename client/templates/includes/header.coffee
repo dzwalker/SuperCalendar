@@ -25,6 +25,11 @@ Template.header.helpers
         if Roles.userIsInRole(Meteor.user(),"user",'statisticsExam')
             return true
         false
+
+    showTodoMyCal:()->
+        if Roles.userIsInRole(Meteor.user(),"user",'todoMyCal')
+            return true
+        false
     showPmCal:()->
         if Roles.userIsInRole(Meteor.user(),"admin",'pmCal')
             return true

@@ -22,7 +22,8 @@ template(name="todoCreate")
                         input(type="radio", name="type", value="4") 
                         |待定
                     label.control-label ｜
-                    label.control-label(for="duetime") 任务时间：
+                    label.control-label(for="time") 任务时间：
                     .input-group
-                        input.form-control(type="text",placeholder="任务结束时间", name="duetime", value="")
+                        input.form-control(type="text",placeholder="小时", name="hour", value="")
+                        input.form-control(type="text",placeholder="分钟", name="minute", value="")
                 

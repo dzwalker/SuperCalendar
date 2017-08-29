@@ -31,6 +31,15 @@ Template.activityItem.helpers
         FormOption.teachers(exam, nameType,thisActivity.teachers)
 
 Template.activityItem.events
+    'click .delActivity':(e,t)->
+        activityID = e.currentTarget.getAttribute("data-ActivityId")
+        Meteor.call('activityDelete',activityID,(error,result)->
+            if error
+                return alert(error.reason)
+            else
+                FlashMessages.sendError("你消灭了一个活动！")
+
+        )
     'submit form': (e,t) ->
         e.preventDefault()
         activityID = $(e.target).find('[name=activityID]').val()

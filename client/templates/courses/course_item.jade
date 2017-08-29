@@ -1,7 +1,11 @@
 template(name="courseItem")
-    .event
-        .event-content
-            h3 #{thisCourse.title}
+    .row-fluid
+        .projectItemWrapper.col-md-12
+            h2.projectTitle 
+                |#{thisCourse.title}
+                if isInRole 'admin' roleExam
+                    a.delCourse(href="#",data-CourseId="#{thisCourse._id}") 
+                        span.glyphicon.glyphicon-trash
             form.main.form
                 input(type="hidden",value="#{thisCourse._id}",name="courseId")
                 input(type="hidden",value="#{thisCourse.exam}",name="exam")

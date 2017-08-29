@@ -9,7 +9,7 @@ Template.weeksAndQuery.helpers
 Template.weeksAndQuery.onRendered(
     ()->
         daysActivitiesDrake = dragula($('.oneDayActivities').toArray(),{
-            removeOnSpill: true
+            # removeOnSpill: true
 
             })
 
@@ -32,19 +32,19 @@ Template.weeksAndQuery.onRendered(
             )
         )
 
-        daysActivitiesDrake.on('remove',(el, container, source)->
-            $(".oneDayActivities").removeClass('dropDestination')
-            Meteor.call('activityDelete',el.id,(error,result)->
-                if error
-                    return alert(error.reason)
-                else
-                    FlashMessages.sendError("你消灭了一个活动！")
-
-            )
-        )
+        # daysActivitiesDrake.on('remove',(el, container, source)->
+        #     $(".oneDayActivities").removeClass('dropDestination')
+        #     Meteor.call('activityDelete',el.id,(error,result)->
+        #         if error
+        #             return alert(error.reason)
+        #         else
+        #             FlashMessages.sendError("你消灭了一个活动！")
+        #
+        #     )
+        # )
 
         daysCourseDrake = dragula($('.oneDayCourses').toArray(),{
-            removeOnSpill : true
+            # removeOnSpill : true
         })
         daysCourseDrake.on("drag",(el,target,source,sibling)->
             $(".oneDayCourses").addClass('dropDestination')
@@ -67,16 +67,16 @@ Template.weeksAndQuery.onRendered(
             )
         )
 
-        daysCourseDrake.on('remove',(el, container, source)->
-            $(".oneDayCourses").removeClass('dropDestination')
-            Meteor.call('courseDelete',el.id,(error,result)->
-                if error
-                    return alert(error.reason)
-                else
-                    FlashMessages.sendError("你消灭了一个课！")
-
-            )
-        )
+        # daysCourseDrake.on('remove',(el, container, source)->
+        #     $(".oneDayCourses").removeClass('dropDestination')
+        #     Meteor.call('courseDelete',el.id,(error,result)->
+        #         if error
+        #             return alert(error.reason)
+        #         else
+        #             FlashMessages.sendError("你消灭了一个课！")
+        #
+        #     )
+        # )
 
 
 

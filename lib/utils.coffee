@@ -116,6 +116,7 @@ root.DefaultConfigure =
     otherApps:
         todo: "TODO"
         statisticsExam: "排课统计"
+        todoMyCal : "个人日历"
         pmCal: "小本本"
         allData: "全部数据操作"
 

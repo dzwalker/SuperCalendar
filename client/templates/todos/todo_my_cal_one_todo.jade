@@ -1,0 +1,6 @@
+template(name="todoMyCalOneTodo")
+    .oneTodo(id="#{_id}", class="") 
+        p(class="oneItem #{cssStyle}") 
+            span.itemTitle 
+                a.titleLink(href="{{pathFor route='projectItem' data=courseQuery }}")
+                    | #{title}

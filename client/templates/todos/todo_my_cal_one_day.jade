@@ -10,8 +10,11 @@ template(name="todoMyCalOneDay")
                     a(href="{{pathFor route='todoCreate' query=queryString}}") +TODO
             .oneDayReminders
                 each thisDayReminders
-                    p #{title}
+                    +todoMyCalOneTodo
                         
             .oneDayTodos
+                each thisDayTodos
+                    +todoMyCalOneTodo
+                    
             if isShowThisWeekTodos
                 .oneWeekTodos

@@ -41,8 +41,9 @@ template(name="header")
                                     a(href="{{pathFor route='statisticsExam' data=exam}}") #{words}
                 li(role="presentation")
                     a(href="{{pathFor 'todoWeekly'}}") 周计划/总结            
-                //- li
-                    a(href="{{pathFor 'todoMyCal'}}") 个人日历            
+                if showTodoMyCal
+                    li
+                        a(href="{{pathFor 'todoMyCal'}}") 个人日历            
                 if showPmCal
                     li(role="presentation")
                         a(href="{{pathFor 'pmCal'}}") 小本本            

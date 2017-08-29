@@ -6,15 +6,11 @@ template(name="selectorPersonal")
                     label.control-label(for='startDate') 开始日期：
                     .input-group
                         input.form-control.datepicker(type="text", name="startDate", value="#{startDate}")
-                    select(name="weeks").form-control
-                        option(value="1")
-                            |显示1周
-                        option(value="6")
-                            |显示6周
-                        option(value="8")
-                            |显示8周
-                        option(value="12")
-                            |显示12周
+                        .btn-group(role='group' aria-label="...")
+                            a#preWeek.btn.btn-default(href="{{pathFor route='todoMyCal' query=dateStringPreWeek}}")
+                                span.glyphicon.glyphicon-menu-left(aria-hidden="true")
+                            a#nextWeek.btn.btn-default(href="{{pathFor route='todoMyCal' query=dateStringNextWeek}}")
+                                span.glyphicon.glyphicon-menu-right(aria-hidden="true")
                     label.control-label ｜
                     label.control-label(for="subjects") 筛选：
                     label.checkbox-inline
@@ -26,15 +22,8 @@ template(name="selectorPersonal")
                     label.checkbox-inline
                         input(type="checkbox", name="subjects", value="", checked="")
                         |事件
-                //- .controls
-                    label.control-label(for="eventTypes") 分类：
-                    each eventTypes
-                        label.checkbox-inline
-                            input(type="checkbox", name="eventTypes", value="#{t}", checked="")
-                            |#{n}
-                //- .controls
+                    label.control-label ｜
                     
-                .controls
                     label.control-label(for="viewCompleted") 已完成的任务：
                     label.radio-inline
                         input(type="radio", name="viewCompleted", value="0", checked="checked") 

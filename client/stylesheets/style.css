@@ -176,7 +176,7 @@ body {
     padding: 3px;
     margin: 1px;
 }
-.badge-aio,.badge-project{
+.badge-aio,.badge-project,.badge-todo{
     background-color: #6495ED;
 }
 .badge-aio.temp,.badge-project.projectCompleted{
@@ -192,7 +192,7 @@ body {
     border: 2px red solid;
 }
 
-.badge-activity,.badge-checkpoint{
+.badge-activity,.badge-checkpoint,.badge-reminder{
     background-color: #EE7600;
 }
 .badge-activity.temp,.badge-checkpoint.checkpointCompleted{

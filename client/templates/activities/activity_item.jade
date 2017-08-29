@@ -1,7 +1,11 @@
 template(name="activityItem")
-    .event
-        .event-content
-            h3 #{thisActivity.titleShow}
+    .row-fluid
+        .projectItemWrapper.col-md-12
+            h2.projectTitle 
+                |#{thisActivity.titleShow}
+                if isInRole 'admin' roleExam
+                    a.delActivity(href="#",data-ActivityId="#{thisActivity._id}") 
+                        span.glyphicon.glyphicon-trash
             form.main.form
                 input(type="hidden",value="#{thisActivity._id}",name="activityID")
                 input(type="hidden",value="#{thisActivity.exam}",name="exam")

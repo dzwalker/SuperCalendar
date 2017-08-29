@@ -179,3 +179,12 @@ Template.courseItem.events
             newLiveDays.push parseInt(liveDayString)
         t.liveDays.set(newLiveDays)
         null
+    'click .delCourse':(e,t)->
+        courseId = e.currentTarget.getAttribute("data-CourseId")
+        Meteor.call('courseDelete',courseId,(error,result)->
+            if error
+                return alert(error.reason)
+            else
+                FlashMessages.sendError("你消灭了一个课！")
+
+        )
