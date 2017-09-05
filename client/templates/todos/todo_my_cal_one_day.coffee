@@ -14,7 +14,10 @@ Template.todoMyCalOneDay.helpers
         this.format("MM/DD")
     thisDayReminders:()->
         today = this
+
+        todoUserId = Session.get("todoUserId")
         queryReminders =
+            userId : todoUserId
             duetime:{
                 $gte: today.clone().toDate()
                 $lt: today.clone().add(1,"days").toDate()
@@ -25,8 +28,9 @@ Template.todoMyCalOneDay.helpers
 
     thisDayTodos:()->
         today = this
-        console.log today
+        todoUserId = Session.get("todoUserId")
         queryReminders =
+            userId : todoUserId
             duetime:{
                 $gte: today.clone().toDate()
                 $lt: today.clone().add(1,"days").toDate()

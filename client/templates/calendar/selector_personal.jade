@@ -31,3 +31,9 @@ template(name="selectorPersonal")
                     label.radio-inline
                         input(type="radio", name="viewCompleted", value="1") 
                         |显示
+                    if isInRole 'admin' 'todo'
+                        label.control-label.hidden-xs ｜
+                        label.control-label.hidden-xs 查看用户：
+                        select#changeUser.form-control(name="todoUsers")
+                            each todoUsers
+                                option(value="#{_id}") #{username}(#{nickName})

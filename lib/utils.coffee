@@ -112,6 +112,7 @@ root.DefaultConfigure =
         gre : "GRE"
         gmat : "GMAT"
         ielts : "IELTS"
+        sandbox : "沙盒"
         all: "全部科目"
     otherApps:
         todo: "TODO"

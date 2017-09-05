@@ -1,6 +1,12 @@
 Template.selectorPersonal.onCreated(
     ()->
-
+        uid = Meteor.userId()
+        queryData = this.data.query
+        
+        if 'uid' of queryData
+            if Roles.userIsInRole(Meteor.user(),'admin', 'todo')
+                uid = queryData['uid']
+        Session.set("todoUserId",uid)
 
         null
 )
@@ -26,7 +32,10 @@ Template.selectorPersonal.events
         queryData["weeks"] = weeks
         Router.go('examCal',{_exam:Session.get("_exam")},{query:$.param(queryData)})
         null
-
+    'change [name=todoUsers]':(e,t)->
+        uid = $('[name=todoUsers]').val()
+        Session.set("todoUserId",uid)
+        null
 
 
 Template.selectorPersonal.helpers
@@ -70,3 +79,13 @@ Template.selectorPersonal.helpers
         _.extend(query,queryData)
         query['startDate'] = nextWeek.format("YYYYMMDD")
         $.param(query)
+    todoUsers:()->
+        if Roles.userIsInRole(Meteor.user(),"admin",'todo')
+            todoSettings = Settings.findOne({name:"todo"}).value
+            currentUser = Meteor.users.findOne({_id:Meteor.userId()})
+            usersNames = todoSettings.admin[currentUser.username]
+            usersAdmined = Meteor.users.find({username:{$in:usersNames}})
+            # usersAdmined = []
+            return usersAdmined
+        else
+            return null

@@ -178,16 +178,18 @@ Router.route('/personalCalendar/p',
 
 
 Router.route(
-    '/todo/:_exam/:_id'
+    '/todo/item/:_id'
     {
         waitOn:()->
             Meteor.subscribe('todoItem',this.params._id)
         name:'todoItem'
         data : ()->
-            Session.set("_exam", this.params._exam)
             thisItem = Todos.findOne({_id:this.params._id})
             data = this.params
-            _.extend(data,{thisItem:thisItem,app:'superCalendar'})
+            _.extend(data,{thisItem:thisItem})
+            if thisItem.type is 7
+                Session.set("_exam", thisItem.userId)
+                _.extend(data,{app:'superCalendar'})
             data
     }
 )

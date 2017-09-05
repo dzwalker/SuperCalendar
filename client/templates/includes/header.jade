@@ -59,6 +59,6 @@ template(name="header")
                         a(href="{{pathFor 'courseNew'}}") 添加课程
                 if isInRole 'superAdmin' 'adminGroup'
                     li
-                        a(href="{{pathFor 'usersList'}}") 设置
+                        a(href="{{pathFor 'settingMore'}}") 设置
             ul.nav.navbar-nav.navbar-right
                 +loginButtons

@@ -1,20 +1,47 @@
 template(name="todoItem")
-    .event
-        .event-content
-            h3 #{thisTodo.titleShow}
+    .row-fluid
+        .projectItemWrapper.col-md-12
+            h2.projectTitle
+                |#{thisTodo.titleShow}
+                if isEditable
+                    a.todoChangeStatus(href="#",data-todoId="#{todoId}",data-status="9") 
+                        span.glyphicon.glyphicon-trash
+                    if todoIsChecked
+                        a.todoChangeStatus(href="#",data-todoId="#{todoId}",data-status="0") 
+                            span.glyphicon.glyphicon-check
+                    else
+                        a.todoChangeStatus(href="#",data-todoId="#{todoId}",data-status="1") 
+                            span.glyphicon.glyphicon-unchecked
+
             form.main.form
                 input(type="hidden",value="#{thisTodo._id}",name="todoId")
                 input(type="hidden",value="#{thisTodo.userId}",name="exam")
+                if isPersonalTodo
+                    input(type="hidden",value="1",name="isPersonalTodo")
                 
-                .form-group
-                    label.control-label(for="status") 删除TODO
                     .controls
+                        label.control-label(for="type") 任务类型：
                         label.radio-inline
-                            input(type="radio", name="status", value="1", checked="true")
-                            |不删除TODO 
+                            input(type="radio", name="type", value="1") 
+                            |指定时间
                         label.radio-inline
-                            input(type="radio", name="status", value="9")
-                            |删除TODO
+                            input(type="radio", name="type", value="2", checked="checked") 
+                            |日任务
+                        label.radio-inline
+                            input(type="radio", name="type", value="3") 
+                            |周任务
+                        label.radio-inline
+                            input(type="radio", name="type", value="4") 
+                            |待定
+                        label.control-label ｜
+                        label.control-label(for="time") 任务时间：
+                        .input-group
+                            input.form-control.datepicker(type="text", name="dueDate", value="#{dueDate}")
+                            input.form-control(type="text",placeholder="小时", name="hour", value="")
+                            input.form-control(type="text",placeholder="分钟", name="minute", value="")
+                else
+                    input(type="hidden",value="0",name="isPersonalTodo")
+                    
                 .form-group
                     label.control-label(for="title") 内容
                     .controls
@@ -25,5 +52,4 @@ template(name="todoItem")
                         input.form-control(type="text", placeholder="备注", name="note", id="note", value="#{thisTodo.note}")
                 if isEditable
                     input.btn.btn-primary(type="submit", value="保存修改")
-            //- +flashMessages
                     
