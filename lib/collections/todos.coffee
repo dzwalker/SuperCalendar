@@ -15,7 +15,7 @@ Meteor.methods
             check(todoAttributes,{userId:String, type: Number,catagory:String, title:String, note:String, duetime:Date}) #所有插入的内容都要在这里声名
             _.extend(todoAttributes,{
                 submitted : new Date()
-                status:1
+                status:0
                 star:0
             })
         else
@@ -23,7 +23,7 @@ Meteor.methods
             _.extend(todoAttributes,{
                 submitted : new Date()
                 note:''
-                status:1
+                status:0
                 star:0
             })
         todoId = Todos.insert(todoAttributes)
