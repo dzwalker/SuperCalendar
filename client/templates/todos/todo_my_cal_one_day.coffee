@@ -23,6 +23,9 @@ Template.todoMyCalOneDay.helpers
                 $lt: today.clone().add(1,"days").toDate()
             }
             type : 1
+        viewMode = Session.get("todoViewMode")
+        if viewMode is 0
+            _.extend(queryReminders,{status:0})
         todos = Todos.find(queryReminders,{sort:{duetime:1}})
         todos
 
@@ -36,6 +39,9 @@ Template.todoMyCalOneDay.helpers
                 $lt: today.clone().add(1,"days").toDate()
             }
             type : 2
+        viewMode = Session.get("todoViewMode")
+        if viewMode is 0
+            _.extend(queryReminders,{status:0})
         todos = Todos.find(queryReminders,{sort:{duetime:1}})
         todos
     isShowThisWeekTodos:()->

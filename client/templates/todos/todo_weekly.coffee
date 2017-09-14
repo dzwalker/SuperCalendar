@@ -245,15 +245,16 @@ Template.todoWeekly.events
             title : title
             type : 5
             catagory : catagory
+        $("[name=title]").val("")
 
         Meteor.call('todoInsert',todo, (error,result)->
             if error
                 return alert(error.reason)
         	# Router.go('eventPage',{_id: result._id})
             else
-                $("[name=title]").val("")
+                # $("[name=title]").val("")
 
-                # FlashMessages.sendSuccess("你创建了一个任务！")
+                console.log "你创建了一个任务！"
         )
         null
     'click a.starIt':(e,t)->

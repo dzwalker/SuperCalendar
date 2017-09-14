@@ -1,18 +1,22 @@
 Template.selectorPersonal.onCreated(
     ()->
-        uid = Meteor.userId()
+        uid = Session.get("todoUserId")
+        if not uid
+            uid = Meteor.userId()
+            Session.set("todoUserId",uid)
         queryData = this.data.query
-        
+
         if 'uid' of queryData
             if Roles.userIsInRole(Meteor.user(),'admin', 'todo')
                 uid = queryData['uid']
-        Session.set("todoUserId",uid)
-
+        Session.set("todoViewMode",0)
         null
 )
 
 Template.selectorPersonal.onRendered(
     ()->
+        $("#changeUser").val(Session.get("todoUserId"))
+
         queryData = this.data.query
         this.$('.datepicker').datepicker({
             format:"yyyy/mm/dd"
@@ -35,6 +39,14 @@ Template.selectorPersonal.events
     'change [name=todoUsers]':(e,t)->
         uid = $('[name=todoUsers]').val()
         Session.set("todoUserId",uid)
+        null
+    'change [name=viewCompleted]':(e)->
+        viewCompleted = $('[name=viewCompleted]:checked').val()
+        if viewCompleted is "1"
+            Session.set("todoViewMode",1)
+        else if viewCompleted is "0"
+            # $('.oneDayActivities').hide()
+            Session.set("todoViewMode",0)
         null
 
 

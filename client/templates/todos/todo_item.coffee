@@ -1,6 +1,9 @@
 Template.todoItem.onRendered(
     ()->
         queryData = this.data.query
+        oriType = this.data.thisItem.type
+        if oriType isnt 1
+            $("#divTimeInput").addClass("hidden")
         this.$('.datepicker').datepicker({
             format:"yyyy/mm/dd"
             weekStart: 1
@@ -16,6 +19,13 @@ Template.todoItem.helpers
         else if this.thisItem.type in [1,2,3]
             if Meteor.userId() is this.thisItem.userId
                 return true
+            else if Roles.userIsInRole(Meteor.userId(), 'admin', 'todo')
+                todoSettings = Settings.findOne({name:"todo"}).value
+                owner = Meteor.users.findOne({_id:this.thisItem.userId}).username
+                currentUser = Meteor.users.findOne({_id:Meteor.userId()})
+                adminedUsersNames = todoSettings.admin[currentUser.username]
+                if owner in adminedUsersNames
+                    return true
         false
     isPersonalTodo:()->
         if this.thisItem.type is 7
@@ -29,7 +39,11 @@ Template.todoItem.helpers
     thisTodo:()->
         thisTodo = this.thisItem
         teachers = []
-        titleShow = "【#{thisTodo.catagory}】#{thisTodo.title}"
+        if thisTodo.catagory
+            titleShow = "【#{thisTodo.catagory}】#{thisTodo.title}"
+        else
+            titleShow = thisTodo.title
+
         _.extend(thisTodo,{titleShow:titleShow})
         thisTodo
     dueDate: ()->
@@ -38,7 +52,40 @@ Template.todoItem.helpers
     todoId:()->
         this.thisItem._id
 
+    defaultTime:()->
+        outTime = moment()
+        if this.thisItem.type is 1
+            outTime = moment(this.thisItem.duetime)
+        outTime.format("HH:mm")
+
+    defaultTypesCheck:()->
+        type1Text = false
+        type2Text = false
+        type3Text = false
+        type4Text = false
+        switch this.thisItem.type
+            when 1
+                type1Text = true
+            when 2
+                type2Text = true
+            when 3
+                type3Text = true
+            when 4
+                type4Text = true
+        {type1Text:type1Text,type2Text:type2Text,type3Text:type3Text,type4Text:type4Text}
+    duration:()->
+        duration = 0
+        if "duration" of this.thisItem
+            duration = this.thisItem.duration
+        duration
 Template.todoItem.events
+    'change input[name=type]':(e,t)->
+        currentType = $("input[name=type]:checked").val()
+        if currentType is "1"
+            $("#divTimeInput").removeClass("hidden")
+        else
+            $("#divTimeInput").addClass("hidden")
+
     'submit form': (e,t) ->
         e.preventDefault()
         todoId = $(e.target).find('[name=todoId]').val()
@@ -57,11 +104,17 @@ Template.todoItem.events
             duetime.millisecond(0)
 
             if todoType is 1
-                hour = parseInt($(e.target).find('[name=hour]').val())
+                timeStr = $(e.target).find('[name=time]').val()
+                # hour = parseInt($(e.target).find('[name=hour]').val())
+                hour = timeStr.split(":")[0]
                 duetime.hour(hour)
-                minute = parseInt($(e.target).find('[name=minute]').val())
+                # minute = parseInt($(e.target).find('[name=minute]').val())
+                minute = timeStr.split(":")[1]
                 duetime.minute(minute)
                 duetime.second(0)
+                duration = parseFloat($(e.target).find('[name=duration]').val())
+                if duration > 0
+                    _.extend(updateProperties,{duration:duration})
             else
                 duetime.hour(23)
                 duetime.minute(59)

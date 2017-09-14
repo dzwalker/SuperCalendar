@@ -1,29 +1,38 @@
 template(name="todoCreate")
-    #createTodo.row-fluid
-        .span12
-            form.form-inline
-                .controls
-                    label.control-label(for='title') 创建TODO任务：
-                    .input-group
-                        input.form-control(type="text",placeholder="新的TODO", name="title", value="")
-                    input.btn.btn-primary(type="submit", value="创建活动")
-                .controls
-                    label.control-label(for="type") 任务类型：
-                    label.radio-inline
-                        input(type="radio", name="type", value="1") 
-                        |指定时间
-                    label.radio-inline
-                        input(type="radio", name="type", value="2", checked="checked") 
-                        |日任务
-                    label.radio-inline
-                        input(type="radio", name="type", value="3") 
-                        |周任务
-                    label.radio-inline
-                        input(type="radio", name="type", value="4") 
-                        |待定
-                    label.control-label ｜
-                    label.control-label(for="time") 任务时间：
-                    .input-group
-                        input.form-control(type="text",placeholder="小时", name="hour", value="")
-                        input.form-control(type="text",placeholder="分钟", name="minute", value="")
-                
+    form.main.form
+        h2 创建新的todo
+    
+        input(type="hidden",value="#{userId}",name="userId")
+        .form-group
+            label.control-label(for='title') TODO内容：
+            .controls
+                input.form-control(type="text",placeholder="新的TODO", name="title", value="")
+        .form-group
+            label.control-label(for="type") 任务类型：
+            .controls
+                label.radio-inline
+                    input(type="radio", name="type", value="1") 
+                    |指定时间
+                label.radio-inline
+                    input(type="radio", name="type", value="2", checked="checked") 
+                    |日任务
+                //- label.radio-inline
+                    input(type="radio", name="type", value="3") 
+                    |周任务
+                label.radio-inline
+                    input(type="radio", name="type", value="4") 
+                    |待定
+        #divTimeInput.form-group.hidden
+            label.control-label(for="time") 开始时间：
+            .controls.form-inline
+                input.form-control(type="time", name="time", value="#{defaultTime}")
+                //- .input-group.timeInput
+                    //- input.form-control(type="number",max="23",placeholder="小时", name="hour", value="#{defaultHourAndMinute.hour}")
+                    //- span.input-group-addon :
+                    //- input.form-control(type="number",max="59",placeholder="分钟", name="minute", value="#{defaultHourAndMinute.minute}")
+            //- label.control-label(for="time") 持续时间：
+            //- .controls.form-inline
+                //- .input-group.timeInput
+                    input.form-control(type="number",placeholder="持续", name="duration", value="0")
+                    span.input-group-addon 小时    
+        input#submitTodo.btn.btn-primary(type="submit", value="创建任务")

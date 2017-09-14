@@ -35,7 +35,6 @@ Template.pmNewProject.events
 
         dateBegin = $('#dateBegin').datepicker('getDate')
         deadline = $('#deadline').datepicker('getDate')
-        console.log deadline
         title = $(e.target).find('[name=title]').val()
 
         if title is ''
