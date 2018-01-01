@@ -165,6 +165,16 @@ Router.route('/todo/myCal',
     }
 )
 
+Router.route('/todo/myCalMob',
+    {
+        name:'todoMyCalMobile'
+        data:()->
+            data = this.params
+            _.extend(data, {app:'todoMyCalMobile'})
+            data
+    }
+)
+
 Router.route('/personalCalendar/p',
     {
         name:'personalCalendar'

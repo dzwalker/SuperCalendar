@@ -4,6 +4,35 @@ Template.courseItem.onCreated(
         Session.set("courseTeachers",this.data.thisCourse.teachers)
 )
 Template.courseItem.helpers
+    isEditable:()->
+        if not Roles.userIsInRole(Meteor.userId(),'admin',this._exam)
+            console.log this._exam
+            console.log "not admin"
+            return false
+        else
+            if 'isLock' not of this.thisCourse
+                return true
+            else if this.thisCourse.isLock is 0
+                return true
+            else if Roles.userIsInRole(Meteor.userId(), 'superAdmin',this._exam)
+                return true
+            else
+                return false
+        null
+    isLocked:()->
+        if 'isLock' not of this.thisCourse
+            return 0
+        else
+            console.log "this.thisCourse.isLock",this.thisCourse.isLock
+            return this.thisCourse.isLock
+        null
+
+    strIsLocked:()->
+        strIsLocked = ''
+        if 'isLock' of this.thisCourse
+            if this.thisCourse.isLock is 1
+                strIsLocked = ' - 锁定'
+        strIsLocked
     liveDaysString:()->
         Template.instance().liveDays.get().join(',')
     liveDateAndTime:()->
@@ -13,12 +42,22 @@ Template.courseItem.helpers
         dateBegin = moment(thisCourse.dateBegin)
         liveDays = Template.instance().liveDays.get()
         specialLiveTimeArray = thisCourse.specialLiveTime
+        if 'markedLiveTime' of thisCourse
+            markedLiveTimeArray = thisCourse.markedLiveTime
+        else
+            markedLiveTimeArray = []
+            for m in [0...liveDays.length]
+                markedLiveTimeArray.push 0
         liveTimeDefault = thisCourse.liveTimes
         courseTeachers = thisCourse.teachers
         courseLiveTeachers = []
         settingTeachers = Settings.findOne({name:'teachers'}).value
 
         for i in [0...liveDays.length]
+            if markedLiveTimeArray[i] is 0
+                isMarked = false
+            else
+                isMarked = true
             liveTeachers = []
             liveDay = liveDays[i]
             date = dateBegin.clone().add(liveDay-1,'days').format("MM/DD")
@@ -51,7 +90,7 @@ Template.courseItem.helpers
                             liveTeachers.push {value : teacher, nickName: settingTeachers[teacher].nickName, isSelected:true}
                         else
                             liveTeachers.push {value : teacher, nickName: settingTeachers[teacher].nickName, isSelected:false}
-            liveDateAndTimeArray.push {date : date, liveTime:liveTime, order:i, liveTeachers: liveTeachers}
+            liveDateAndTimeArray.push {date : date, liveTime:liveTime, order:i, liveTeachers: liveTeachers,isMarked:isMarked}
         liveDateAndTimeArray
     liveCourses: () ->
         liveCoursesOri = Courses.getLiveCourses([this._id])
@@ -130,6 +169,16 @@ Template.courseItem.events
             # teachers.push $(this).val()
             specialLiveTime.push parseInt($(this).val())
         )
+        markedLiveTime = []
+        $.each($(e.target).find('[name=markedLiveTime]'),()->
+            console.log $(this).is(":checked"),this
+            if $(this).is(":checked")
+                console.log 1
+                markedLiveTime.push 1
+            else
+                console.log 0
+                markedLiveTime.push 0
+        )
         liveTeachers = []
         $.each($(e.target).find('[name=liveTeachers]'),()->
             # teachers.push $(this).val()
@@ -157,6 +206,7 @@ Template.courseItem.events
             status : status
             note : note
             liveTeachers : liveTeachers
+            markedLiveTime: markedLiveTime
         # console.log activity
         query = t.data.query
         Meteor.call('courseUpdate',courseId,updateProperties, (error,result)->
@@ -186,5 +236,19 @@ Template.courseItem.events
                 return alert(error.reason)
             else
                 FlashMessages.sendError("你消灭了一个课！")
+
+        )
+    'click .lockCourse':(e,t)->
+        courseId = e.currentTarget.getAttribute("data-CourseId")
+        isLocked = parseInt e.currentTarget.getAttribute("data-IsLocked")
+        changeIsLocked = 0
+        if isLocked is 0
+            changeIsLocked = 1
+        console.log "changeIsLocked",changeIsLocked, isLocked,isLocked is 0
+        Meteor.call('courseUpdate',courseId,{isLock:changeIsLocked},(error,result)->
+            if error
+                return alert(error.reason)
+            else
+                FlashMessages.sendError("你锁住/解锁了这个课")
 
         )

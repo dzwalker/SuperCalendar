@@ -24,18 +24,13 @@ Template.selectorPersonal.onRendered(
             autoclose: true
 
             }).on('changeDate',(e)->
-                queryData["startDate"] = e.format()
-                Router.go('selectorPersonal',{query:$.param(queryData)})
+                queryData["startDate"] = e.format("yyyymmdd")
+                console.log queryData
+                Router.go('todoMyCal',{},{query:$.param(queryData)})
                 )
 )
 
 Template.selectorPersonal.events
-    'change [name=weeks]':(e,t)->
-        queryData = t.data.query
-        weeks = parseInt($('[name=weeks]').val())
-        queryData["weeks"] = weeks
-        Router.go('examCal',{_exam:Session.get("_exam")},{query:$.param(queryData)})
-        null
     'change [name=todoUsers]':(e,t)->
         uid = $('[name=todoUsers]').val()
         Session.set("todoUserId",uid)

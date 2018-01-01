@@ -2,8 +2,11 @@ template(name="courseItem")
     .row-fluid
         .projectItemWrapper.col-md-12
             h2.projectTitle 
-                |#{thisCourse.title}
-                if isInRole 'admin' roleExam
+                |#{thisCourse.title} #{strIsLocked}
+                if isInRole 'superAdmin' roleExam
+                    a.lockCourse(href="#",data-CourseId="#{thisCourse._id}",data-IsLocked="#{isLocked}") 
+                        span.glyphicon.glyphicon-lock
+                if isEditable
                     a.delCourse(href="#",data-CourseId="#{thisCourse._id}") 
                         span.glyphicon.glyphicon-trash
             form.main.form
@@ -34,6 +37,9 @@ template(name="courseItem")
                                 
                                 each liveTeachers
                                     option(value="#{value}",selected="#{isSelected}") #{nickName} 
+                            label.checkbox-inline
+                                input(type='checkbox',name="markedLiveTime", checked="#{isMarked}",) 
+                                | 特别关注
                     //- if isInRole 'admin'
                         .controls
                             input.form-control(type="text", placeholder="特殊直播时间", name="specialLiveTime", id="specialLiveTime", value="#{thisCourse.specialLiveTimeString}")
@@ -50,5 +56,5 @@ template(name="courseItem")
                         label.radio-inline
                             input(type="radio", name="status", value="1", checked="#{thisCourse.status1}")
                             |待定课程 
-                if isInRole 'admin' roleExam
+                if isEditable
                     input.btn.btn-primary(type="submit", value="保存修改")

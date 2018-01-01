@@ -57,11 +57,17 @@ Template.oneLiveCourse.helpers
         subject = settingSubjects[this.subject]["shortName"]
         liveTimeString = ""
         liveTimeInt = this.specialLiveTime[liveIndex]
+        if "markedLiveTime" of this
+            isMarked = this.markedLiveTime[liveIndex]
+        else
+            isMarked = 0
         cssSpecialLiveTime = ""
+        if isMarked
+            cssSpecialLiveTime = "cssSpecialLiveTime"
         if not liveTimeInt>0
             liveTimeInt = this.liveTimes
-        else
-            cssSpecialLiveTime = "cssSpecialLiveTime"
+        # else
+        #     cssSpecialLiveTime = "cssSpecialLiveTime"
         if liveTimeInt%100 is 0
             liveTimeString = parseInt(liveTimeInt/100) + "点"
         else

@@ -6,6 +6,9 @@ Template.todoMyCal.onRendered(
 
 Template.todoMyCal.onCreated(
     ()->
+
+        if not Meteor.Device.isDesktop()
+            Router.go('todoMyCalMobile')
         null
 )
 
