@@ -166,7 +166,6 @@ Template.courseItem.events
         )
         specialLiveTime = []
         $.each($(e.target).find('[name=liveTime]'),()->
-            # teachers.push $(this).val()
             specialLiveTime.push parseInt($(this).val())
         )
         markedLiveTime = []
@@ -181,20 +180,13 @@ Template.courseItem.events
         )
         liveTeachers = []
         $.each($(e.target).find('[name=liveTeachers]'),()->
-            # teachers.push $(this).val()
             liveTeachers.push $(this).val()
         )
         liveDays = []
         liveDaysString = $(e.target).find('[name=liveDays]').val().split(',')
         for liveDay in liveDaysString
             liveDays.push parseInt(liveDay)
-        # specialLiveTimeString = $(e.target).find('[name=specialLiveTime]').val().split(',')
-        # for oneSpecialLiveTimeString in specialLiveTimeString
-        #     oneSpecialLiveTime = parseInt(oneSpecialLiveTimeString)
-        #     if oneSpecialLiveTime>0
-        #         specialLiveTime.push oneSpecialLiveTime
-        #     else
-        #         specialLiveTime.push null
+
 
         if teachers.length < 1
             alert '请选择老师!'
@@ -216,15 +208,12 @@ Template.courseItem.events
             else
                 FlashMessages.sendSuccess("你更新了这个课！")
                 Router.go('examCal',{_exam:exam},{query:$.param(query)})
-
-                # Router.go('courseItem',{_exam:exam, _id: courseId})
         )
         null
 
     'blur #liveDays':(e,t)->
         liveDaysStringArray = $("#liveDays").val().split(',')
         newLiveDays = []
-        # console.log "liveDaysStringArray",liveDaysStringArray
         for liveDayString in liveDaysStringArray
             newLiveDays.push parseInt(liveDayString)
         t.liveDays.set(newLiveDays)

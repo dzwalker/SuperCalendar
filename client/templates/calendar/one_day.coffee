@@ -8,10 +8,6 @@ Template.oneDay.helpers
         if "teachers" of this
             queryTeachersSubjects["teachers"] =
                 teachers : {$elemMatch : {$in : this.teachers}}
-        # if "subjects" of this
-        #     queryTeachersSubjects[subject] =
-        #         subject : {$elemMatch : {$in : this.teachers}}
-        # Template.registerHelper("queryTeachersSubjects",()->queryTeachersSubjects)
         queryTeachersSubjects
     queryString:()->
         query = {date:this.format("YYYYMMDD")}
@@ -113,7 +109,6 @@ Template.oneDay.helpers
             cssHasConflict = ""
             if hasConflict
                 cssHasConflict = "cssHasConflict"
-                console.log liveCourses
             return {liveCourses:liveCourses, cssHasConflict:cssHasConflict}
         null
     _exam:()->

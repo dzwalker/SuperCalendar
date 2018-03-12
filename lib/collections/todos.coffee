@@ -15,6 +15,8 @@ Meteor.methods
             check(todoAttributes,{userId:String, type: Number,catagory:String, title:String, note:String, duetime:Date}) #所有插入的内容都要在这里声名
             _.extend(todoAttributes,{
                 submitted : new Date()
+                updatedAt : new Date()
+                idInApp : 0
                 status:0
                 star:0
             })
@@ -22,6 +24,8 @@ Meteor.methods
             check(todoAttributes,{userId:String, type: Number,catagory:String, title:String, duetime:Date}) #所有插入的内容都要在这里声名
             _.extend(todoAttributes,{
                 submitted : new Date()
+                updatedAt : new Date()
+                idInApp : 0
                 note:''
                 status:0
                 star:0
@@ -29,6 +33,7 @@ Meteor.methods
         todoId = Todos.insert(todoAttributes)
         return {_id : todoId}
     todoUpdate:(todoId,updateProperties)->
+        _.extend(updateProperties,{updatedAt : new Date()})
         Todos.update({_id:todoId},{$set:updateProperties},(error)->
             if error
                 console.log error

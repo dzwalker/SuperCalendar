@@ -40,7 +40,6 @@ template(name="courseItem")
                             label.checkbox-inline
                                 input(type='checkbox',name="markedLiveTime", checked="#{isMarked}",) 
                                 | 特别关注
-                    //- if isInRole 'admin'
                         .controls
                             input.form-control(type="text", placeholder="特殊直播时间", name="specialLiveTime", id="specialLiveTime", value="#{thisCourse.specialLiveTimeString}")
                 .form-group
